@@ -74,23 +74,22 @@ public class ReactorExamples
     @Test
     public void retryMono()
     {
-        Mono.defer(() -> randomGenerator(1, 60))
+        Mono.fromCallable(() -> randomGenerator(1, 60))
             .doOnError(e -> System.out.println("Error happened."))
             .retry(5)
             .subscribe(System.out::println, Throwable::printStackTrace);
 
     }
 
-    private Mono<Integer> randomGenerator(int lowerBound, int upperBound)
+    private int randomGenerator(int lowerBound, int upperBound)
     {
         int randomNumber = ThreadLocalRandom.current().nextInt(lowerBound, upperBound + 1);
 
         if (randomNumber < 50)
         {
-            return Mono.error(new IllegalArgumentException("Too low number"));
-        } else
-        {
-            return Mono.just(randomNumber);
+            throw new IllegalArgumentException("Too low number");
         }
+
+        return randomNumber;
     }
 }
