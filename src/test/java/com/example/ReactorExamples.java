@@ -42,7 +42,7 @@ public class ReactorExamples
     @Test
     public void zipFlux()
     {
-        Flux<Integer> numberIntegersFlux = Flux.fromIterable(Arrays.asList(1, 2, 3, 4));
+        Flux<Integer> numberIntegersFlux = Flux.range(1, 4);
         Flux<String> numberStringsFlux = Flux.fromIterable(Arrays.asList("One", "Two", "Three", "Four"));
 
         Flux.zip(numberIntegersFlux, numberStringsFlux, (numberInteger, numberString) -> numberInteger + "-" + numberString)
@@ -55,7 +55,7 @@ public class ReactorExamples
         Flux<String> numberStringsFlux = Flux.fromIterable(Arrays.asList("One", "Two", "Three", "Four"))
                                              .delayElements(Duration.ofMillis(500));
 
-        Flux<Integer> numberIntegersFlux = Flux.fromIterable(Arrays.asList(1, 2, 3, 4))
+        Flux<Integer> numberIntegersFlux = Flux.range(1, 4)
                                                .delayElements(Duration.ofMillis(1000));
 
         Flux.merge(numberStringsFlux, numberIntegersFlux)
