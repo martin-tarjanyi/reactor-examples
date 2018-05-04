@@ -42,10 +42,10 @@ public class ReactorExamples
     @Test
     public void zipFlux()
     {
-        Flux<String> numberStringsFlux = Flux.fromIterable(Arrays.asList("One", "Two", "Three", "Four"));
         Flux<Integer> numberIntegersFlux = Flux.fromIterable(Arrays.asList(1, 2, 3, 4));
+        Flux<String> numberStringsFlux = Flux.fromIterable(Arrays.asList("One", "Two", "Three", "Four"));
 
-        Flux.zip(numberStringsFlux, numberIntegersFlux, (numberString, numberInteger) -> numberInteger + "-" + numberString)
+        Flux.zip(numberIntegersFlux, numberStringsFlux, (numberInteger, numberString) -> numberInteger + "-" + numberString)
             .subscribe(System.out::println);
     }
 
@@ -78,7 +78,6 @@ public class ReactorExamples
             .doOnError(e -> System.out.println("Error happened."))
             .retry(5)
             .subscribe(System.out::println, Throwable::printStackTrace);
-
     }
 
     private int randomGenerator(int lowerBound, int upperBound)
