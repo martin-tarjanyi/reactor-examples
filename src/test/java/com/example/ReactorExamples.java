@@ -14,7 +14,7 @@ public class ReactorExamples
     public void just()
     {
         Mono.just("first-mono")
-            .subscribe(s -> System.out.println(s));
+            .subscribe(elem -> System.out.println(elem), error -> error.printStackTrace(), () -> System.out.println("Completed."));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class ReactorExamples
 
         Flux.merge(numberStringsFlux, numberIntegersFlux)
             .doOnNext(System.out::println)
-            .blockLast();
+            .blockLast(); // don't do it in production code
     }
 
     @Test
