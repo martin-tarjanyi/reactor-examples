@@ -20,7 +20,7 @@ public class ReactorExamples
     @Test
     public void monoOperator()
     {
-        Mono.just("first-mono")
+        Mono.just("second-mono")
             .map(String::toUpperCase)
             .subscribe(s -> System.out.println(s));
     }
@@ -36,7 +36,7 @@ public class ReactorExamples
     public void firstFlux()
     {
         Flux.fromIterable(Arrays.asList("One", "Two", "Three", "Four"))
-            .subscribe(System.out::println);
+            .subscribe(System.out::println, error -> error.printStackTrace(), () -> System.out.println("Completed."));
     }
 
     @Test
